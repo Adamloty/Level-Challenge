@@ -597,8 +597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  Jump: 10
+  Jump: 5
   isGroundedFunc: 0
+  JumpwithRigidbody: 0
 --- !u!50 &858660000
 Rigidbody2D:
   serializedVersion: 4

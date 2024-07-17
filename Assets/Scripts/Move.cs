@@ -12,12 +12,15 @@ public class Move : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
     [SerializeField] private bool isGroundedFunc;
+    [SerializeField] private bool JumpwithRigidbody;
     private SpriteRenderer sprite;
+    private Animator anim;
    // private float vert;
     void Start()
     {
         rb= GetComponent<Rigidbody2D>();
         sprite= GetComponent<SpriteRenderer>();
+        anim= GetComponent<Animator>();
        // Jump = 0;
     }
 
@@ -28,10 +31,16 @@ public class Move : MonoBehaviour
         if(horz<0)
         {
             sprite.flipX= true;
+            anim.SetBool("Run", true);
         }
         else if(horz>0)
         {
             sprite.flipX = false;
+            anim.SetBool("Run", true);
+        }
+        else
+        {
+            anim.SetBool("Run", false);
         }
         //vert = Input.GetAxis("Vertical");
         if(isGroundedFunc)
@@ -50,18 +59,21 @@ public class Move : MonoBehaviour
    
         if(Input.GetKeyDown(KeyCode.Space)&&!isJumping)
         {
-            rb.velocity = new Vector3(0, Jump);
-            // Jump = 50;
+            if(JumpwithRigidbody)
+            {
+                rb.velocity = new Vector3(0, Jump);
+            }
+            else
+            {
+                transform.position += new Vector3(0,Jump, 0);
+            }
+          
+          //  anim.SetBool("Down", true);
             //قفز اللاعب
             isJumping = true;
             //لم يلمس الأرض بعد
             isGrounded = false;
-        }
-      //  if(isJumping)
-       // {
-      //      Jump = 0;
-      //  }
-        
+        } 
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -69,6 +81,7 @@ public class Move : MonoBehaviour
         //Ground tagمع مراعاة وضع علي الأرضية 
         if (collision.collider.CompareTag("Ground"))
         {
+           // anim.SetBool("Down", false);
             //يلمس الأرض
             isGrounded = true;
             //لم يقفز اللاعب بعد
