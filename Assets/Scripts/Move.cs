@@ -18,6 +18,8 @@ public class Move : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        isGrounded = false; // تأكد من إن القيمة المبدئية False
+        isJumping = false;  // تأكد من إن القيمة المبدئية False
     }
 
     void Update()
@@ -54,7 +56,6 @@ public class Move : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isJumping = true;
-            isGrounded = false;
         }
     }
 
@@ -66,6 +67,15 @@ public class Move : MonoBehaviour
             isJumping = false;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
 }
+
 
 
