@@ -12,7 +12,8 @@ public class Move : MonoBehaviour
     private bool isJumping;
     private SpriteRenderer sprite;
     private Animator anim;
-
+   // [SerializeField]private bool Jump_Rig;
+   // [SerializeField] private bool walk_Rig;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,7 +23,7 @@ public class Move : MonoBehaviour
         isJumping = false;  // تأكد من إن القيمة المبدئية False
     }
 
-    void Update()
+    private void Update()
     {
         horz = Input.GetAxis("Horizontal");
         HandleMovement();
@@ -45,9 +46,9 @@ public class Move : MonoBehaviour
         {
             anim.SetBool("Run", false);
         }
-
-        Vector3 movement = new Vector3(horz * speed * Time.deltaTime, 0, 0);
-        transform.position += movement;
+     
+           Vector3 movement = new Vector3(horz * speed * Time.deltaTime, 0, 0);
+           transform.position += movement;
     }
 
     private void HandleJump()
@@ -61,6 +62,7 @@ public class Move : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //علي الأرضية tag Ground لا تنسي وضع
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
