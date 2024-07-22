@@ -25,7 +25,7 @@ public class Door : MonoBehaviour
             anim.SetTrigger("open");
             collision.gameObject.SetActive(false);
             //   collision.collider.transform.GetChild(0).transform.SetParent(null);
-            StartCoroutine(WaitAnimComplete(1));
+            StartCoroutine(WaitAnimComplete(2));
         }
     }
     private IEnumerator WaitAnimComplete(int scene)
