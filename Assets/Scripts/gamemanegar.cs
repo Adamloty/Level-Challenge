@@ -20,4 +20,5 @@ public class gamemanegar : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+  
 }
